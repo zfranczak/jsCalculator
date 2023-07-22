@@ -2,11 +2,15 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  grid-gap: 5px;
-  padding: 10px;
+  grid-gap: 20px;
+  padding: 20px;
 }
 
 .operator {
+  background-color: rgb(82, 10, 239);
+}
+
+.operator:active {
   background-color: rgb(82, 10, 239);
 }
 
@@ -16,7 +20,15 @@
   grid-column-end: 3;
 }
 
+.all-clear:active {
+  background-color: rgb(199, 69, 21);
+}
+
 .decimal {
+  background-color: gray;
+}
+
+.decimal:active {
   background-color: gray;
 }
 
@@ -25,6 +37,10 @@
   grid-column: 4;
   grid-row-start: 4;
   grid-row-end: 6;
+}
+
+.equals:active {
+  background-color: rgb(28, 128, 0);
 }
 
 .zero {
