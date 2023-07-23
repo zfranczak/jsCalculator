@@ -4,6 +4,27 @@ import './App.css';
 import Display from './components/Display';
 import Footer from './components/Footer';
 
+const validKeys = [
+  '0',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '+',
+  '-',
+  '*',
+  '/',
+  '.',
+  '=',
+  'Enter',
+  'Backspace',
+];
+
 const App = () => {
   const [input, setInput] = useState('0');
   const [output, setOutput] = useState('0');
@@ -20,28 +41,16 @@ const App = () => {
 
   const handleKeyboardInput = (event) => {
     const pressedKey = event.key;
-    const validKeys = [
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '+',
-      '-',
-      '*',
-      '/',
-      '.',
-      '=',
-      'Enter',
-      'Backspace',
-    ];
+
     if (validKeys.includes(pressedKey)) {
-      handleButtonClick(pressedKey);
+      if (pressedKey === 'Backspace') {
+        setInput((prevInput) => prevInput.slice(0, -1));
+      } else if (pressedKey === 'Enter') {
+        event.preventDefault();
+        setInput('=');
+      } else {
+        handleButtonClick(pressedKey);
+      }
     }
   };
 
