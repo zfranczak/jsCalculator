@@ -74,9 +74,9 @@ const App = () => {
     if (validKeys.includes(pressedKey)) {
       if (pressedKey === 'Backspace') {
         setInput((prevInput) => prevInput.slice(0, -1));
-      } else if (pressedKey === 'Enter') {
+      } else if (pressedKey === 'Enter' || pressedKey === '=') {
         event.preventDefault();
-        setInput('=');
+        handleButtonClick('=');
       } else {
         handleButtonClick(pressedKey);
       }
