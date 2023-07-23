@@ -32,13 +32,38 @@ const App = () => {
   const handleButtonClick = (value) => {
     setInput((prevInput) => {
       switch (true) {
-        case prevInput === '0' && value !== '.':
-          return value;
         case value === 'AC':
-          setInput('0');
           setOutput('0');
+          return '0';
+        case value === '=':
+          try {
+            const sanitizedExpression = prevInput
+              .replace(/x/g, '*')
+              .replace(/÷/g, '/');
+            const result = eval(sanitizedExpression);
+            const roundedResult = Math.round(result * 100000000) / 100000000;
+            setOutput(roundedResult.toString());
+            return roundedResult.toString();
+          } catch (error) {
+            setOutput('Error');
+            return '0';
+          }
+        case value === '.':
+          if (!prevInput.includes('.')) {
+            return prevInput + value;
+          }
+          return prevInput;
+        case /[-+*/]/.test(value) && /[-+*/]/.test(prevInput.slice(-1)):
+          if (value === '-') {
+            return prevInput + value;
+          }
+          return prevInput.replace(/[-+*/]+$/, '') + value;
         default:
-          return prevInput + value;
+          if (prevInput === '0' && value !== '.') {
+            return value;
+          } else {
+            return prevInput + value;
+          }
       }
     });
   };
