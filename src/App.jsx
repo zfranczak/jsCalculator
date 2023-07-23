@@ -31,10 +31,14 @@ const App = () => {
 
   const handleButtonClick = (value) => {
     setInput((prevInput) => {
-      if (prevInput === '0' && value !== '.') {
-        return value;
-      } else {
-        return prevInput + value;
+      switch (true) {
+        case prevInput === '0' && value !== '.':
+          return value;
+        case value === 'AC':
+          setInput('0');
+          setOutput('0');
+        default:
+          return prevInput + value;
       }
     });
   };
