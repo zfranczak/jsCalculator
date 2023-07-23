@@ -49,7 +49,9 @@ const App = () => {
             return '0';
           }
         case value === '.':
-          if (!prevInput.includes('.')) {
+          const hasDecimal = prevInput.includes('.');
+          const hasOperator = /[-+*/]/.test(prevInput.slice(-1));
+          if (!hasDecimal && (!hasOperator || value === '-')) {
             return prevInput + value;
           }
           return prevInput;
