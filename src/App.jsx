@@ -37,10 +37,11 @@ const App = () => {
           return '0';
         case '=':
           try {
-            const sanitizedExpression = prevInput
-              .replace(/x/g, '*')
-              .replace(/÷/g, '/');
-            const result = eval(sanitizedExpression);
+            // leaving for possible restyling later
+            // const sanitizedExpression = prevInput
+            //   .replace(/x/g, '*')
+            //   .replace(/÷/g, '/');
+            const result = eval(prevInput);
             const roundedResult = Math.round(result * 100000000) / 100000000;
             setOutput(roundedResult.toString());
             return roundedResult.toString();
@@ -50,8 +51,10 @@ const App = () => {
           }
         case '.':
           const hasDecimal = prevInput.includes('.');
-          const hasOperator = /[-+*/]/.test(prevInput.slice(-1));
+          const hasOperator = /[-+*/]/.test(prevInput);
           if (!hasDecimal && (!hasOperator || value === '-')) {
+            return prevInput + value;
+          } else if (hasOperator) {
             return prevInput + value;
           }
           return prevInput;
