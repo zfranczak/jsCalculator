@@ -31,11 +31,11 @@ const App = () => {
 
   const handleButtonClick = (value) => {
     setInput((prevInput) => {
-      switch (true) {
-        case value === 'AC':
+      switch (value) {
+        case 'AC':
           setOutput('0');
           return '0';
-        case value === '=':
+        case '=':
           try {
             const sanitizedExpression = prevInput
               .replace(/x/g, '*')
@@ -48,19 +48,20 @@ const App = () => {
             setOutput('Error');
             return '0';
           }
-        case value === '.':
+        case '.':
           const hasDecimal = prevInput.includes('.');
           const hasOperator = /[-+*/]/.test(prevInput.slice(-1));
           if (!hasDecimal && (!hasOperator || value === '-')) {
             return prevInput + value;
           }
           return prevInput;
-        case /[-+*/]/.test(value) && /[-+*/]/.test(prevInput.slice(-1)):
-          if (value === '-') {
-            return prevInput + value;
-          }
-          return prevInput.replace(/[-+*/]+$/, '') + value;
         default:
+          if (/[-+*/]/.test(value) && /[-+*/]/.test(prevInput.slice(-1))) {
+            if (value === '-') {
+              return prevInput + value;
+            }
+            return prevInput.replace(/[-+*/]+$/, '') + value;
+          }
           if (prevInput === '0' && value !== '.') {
             return value;
           } else {
